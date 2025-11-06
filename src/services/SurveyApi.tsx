@@ -1,4 +1,4 @@
-import type { Survey } from "../types/survey";
+import type { Survey } from "../types";
 
 
 // API base url .env file ?
