@@ -10,6 +10,7 @@ export interface Survey {
 export interface Question {
     id: number;
     questionText: string;
+    surveyId: number;
 }
 
 export interface Response {
