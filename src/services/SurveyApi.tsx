@@ -1,6 +1,6 @@
 import type { Question, Survey } from "../types";
 
-const API_URL = import.meta.env.BASE_API_URL;
+const API_URL = import.meta.env.VITE_BASE_API_URL;
 
 // Get Surveys
 const getSurveys = async (): Promise<Survey[]> => {
