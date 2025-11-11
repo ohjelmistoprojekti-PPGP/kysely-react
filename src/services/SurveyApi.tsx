@@ -25,6 +25,23 @@ const getSurveys = async (): Promise<Survey[]> => {
   }
 };
 
+// Get Survey by ID
+const getSurveyById = async (surveyId: number): Promise<Survey | null> => {
+  try {
+    const response = await fetch(`${API_URL}/surveys/${surveyId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    });
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
+    return await response.json() as Survey;
+  } catch (error) {
+    console.error(`Error fetching survey ${surveyId}:`, error);
+    return null;
+  }
+};
+
 //Get Questions
 const getQuestionsBySurveyId = async (
   surveyId: number
@@ -52,6 +69,7 @@ const getQuestionsBySurveyId = async (
 
 const SurveyApi = {
   getSurveys,
+  getSurveyById,
   getQuestionsBySurveyId,
 };
 

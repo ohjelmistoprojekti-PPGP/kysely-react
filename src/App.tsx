@@ -5,8 +5,8 @@ function App() {
   return (
     <>
       <nav>
-        <Link to={"/"}>Home</Link>
-        <Link to={"/surveys/:id"}>Kysely</Link>
+        <Link to={"/"}></Link>
+        <Link to={"/surveys/:id"}></Link>
       </nav>
       <Outlet />
     </>

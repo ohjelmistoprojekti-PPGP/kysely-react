@@ -64,7 +64,7 @@ function SurveyList() {
                   <TableCell>{survey.surveyName}</TableCell>
                   <TableCell
                     // onClick={() => handleSelectSurvey(survey.surveyId)}
-                    onClick={() => navigate(`/surveys/${survey.surveyId}`)}
+                    onClick={() => navigate(`/surveys/${survey.surveyId}`, { state: { survey } })}
                   >
                     Vastaa
                   </TableCell>
