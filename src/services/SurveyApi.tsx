@@ -1,7 +1,6 @@
 import type { Question, Survey } from "../types";
 
-// API base url .env file ?
-const API_URL = "http://localhost:8080/api";
+const API_URL = import.meta.env.BASE_API_URL;
 
 // Get Surveys
 const getSurveys = async (): Promise<Survey[]> => {
