@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Survey } from "../types";
+import { type Question, type Survey } from "../types";
 import SurveyApi from "../services/SurveyApi";
 import {
   Table,
@@ -15,6 +15,8 @@ function SurveyList() {
   const [surveys, setSurveys] = useState<Survey[] | null>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedSurveyId, setSelectedSurveyId] = useState<number | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]);
 
   useEffect(() => {
     fetchSurveys();
@@ -32,6 +34,12 @@ function SurveyList() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSelectSurvey = async (surveyId: number) => {
+    setSelectedSurveyId(surveyId);
+    const fecthedQuestions = await SurveyApi.getQuestionsBySurveyId(surveyId);
+    setQuestions(fecthedQuestions);
   };
 
   return (
@@ -54,10 +62,25 @@ function SurveyList() {
               {surveys.map((survey) => (
                 <TableRow key={survey.surveyId}>
                   <TableCell>{survey.surveyName}</TableCell>
+                  <TableCell
+                    onClick={() => handleSelectSurvey(survey.surveyId)}
+                  >
+                    Vastaa
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          {selectedSurveyId && (
+            <>
+              <h3>Questions for Survey {selectedSurveyId}</h3>
+              <ul>
+                {questions.map((q) => (
+                  <li key={q.questionId}>{q.questionText}</li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       )}
     </>
