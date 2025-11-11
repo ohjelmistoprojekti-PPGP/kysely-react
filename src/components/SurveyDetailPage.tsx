@@ -12,7 +12,7 @@ function SurveyDetailPage() {
     const fetchSurveyAndQuestions = async () => {
       const surveys = await SurveyApi.getSurveys();
       const selectedSurvey =
-        surveys.find((s) => s.surveyId === Number(surveyId)) || null;
+        surveys.find((s) => s.id === Number(surveyId)) || null;
       setSurvey(selectedSurvey);
 
       const questionList = await SurveyApi.getQuestionsBySurveyId(

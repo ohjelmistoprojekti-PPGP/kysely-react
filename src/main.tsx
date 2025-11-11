@@ -1,10 +1,32 @@
 import "./index.css";
 import App from "./App.tsx";
-import { BrowserRouter } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import ReactDOM from "react-dom/client";
+import SurveyList from "./components/SurveyList.tsx";
+import SurveyDetailPage from "./components/SurveyDetailPage.tsx";
+import React from "react";
+
+const router = createBrowserRouter([
+  // Import components that are used in routes
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      // children are nested routes with a route
+      {
+        element: <SurveyList />,
+        index: true, // index route does not need any path
+      },
+      {
+        path: "surveys/:id", // path can be defined relative to the parent path
+        element: <SurveyDetailPage />,
+      },
+    ],
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

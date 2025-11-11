@@ -1,15 +1,15 @@
 import "./App.css";
-import SurveyList from "./components/SurveyList";
-import SurveyDetailPage from "./components/SurveyDetailPage";
-import { Routes, Route, Navigate } from "react-router";
+import { Link, Outlet } from "react-router";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/surveys" replace />} />
-      <Route path="/surveys" element={<SurveyList />} />
-      <Route path="/surveys:id" element={<SurveyDetailPage />} />
-    </Routes>
+    <>
+      <nav>
+        <Link to={"/"}>Home</Link>
+        <Link to={"/surveys/:id"}>Kysely</Link>
+      </nav>
+      <Outlet />
+    </>
   );
 }
 
