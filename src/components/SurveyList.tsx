@@ -36,24 +36,29 @@ function SurveyList() {
 
   return (
     <>
+      <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+        Kyselylista
+      </h2>
       {loading && <div>Ladataan kyselyjä...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
       {!loading && !error && surveys && (
-        <Table>
-          <TableCaption>Saatavilla olevat kyselyt</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Kysely</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {surveys.map((survey) => (
-              <TableRow key={survey.surveyId}>
-                <TableCell>{survey.surveyName}</TableCell>
+        <div className="flex items-center">
+          <Table className="w-[500px] mx-auto">
+            <TableCaption>Saatavilla olevat kyselyt</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Kysely</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {surveys.map((survey) => (
+                <TableRow key={survey.surveyId}>
+                  <TableCell>{survey.surveyName}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       )}
     </>
   );
