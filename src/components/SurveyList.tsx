@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { type Question, type Survey } from "../types";
+import { type Survey } from "../types";
 import SurveyApi from "../services/SurveyApi";
 import {
   Table,
@@ -10,13 +10,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useNavigate } from "react-router";
 
 function SurveyList() {
   const [surveys, setSurveys] = useState<Survey[] | null>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedSurveyId, setSelectedSurveyId] = useState<number | null>(null);
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSurveys();
@@ -36,11 +36,11 @@ function SurveyList() {
     }
   };
 
-  const handleSelectSurvey = async (surveyId: number) => {
-    setSelectedSurveyId(surveyId);
-    const fecthedQuestions = await SurveyApi.getQuestionsBySurveyId(surveyId);
-    setQuestions(fecthedQuestions);
-  };
+  //   const handleSelectSurvey = async (surveyId: number) => {
+  //     setSelectedSurveyId(surveyId);
+  //     const fecthedQuestions = await SurveyApi.getQuestionsBySurveyId(surveyId);
+  //     setQuestions(fecthedQuestions);
+  //   };
 
   return (
     <>
@@ -63,7 +63,8 @@ function SurveyList() {
                 <TableRow key={survey.surveyId}>
                   <TableCell>{survey.surveyName}</TableCell>
                   <TableCell
-                    onClick={() => handleSelectSurvey(survey.surveyId)}
+                    // onClick={() => handleSelectSurvey(survey.surveyId)}
+                    onClick={() => navigate(`/surveys/${survey.surveyId}`)}
                   >
                     Vastaa
                   </TableCell>
@@ -71,16 +72,6 @@ function SurveyList() {
               ))}
             </TableBody>
           </Table>
-          {selectedSurveyId && (
-            <>
-              <h3>Questions for Survey {selectedSurveyId}</h3>
-              <ul>
-                {questions.map((q) => (
-                  <li key={q.questionId}>{q.questionText}</li>
-                ))}
-              </ul>
-            </>
-          )}
         </div>
       )}
     </>
