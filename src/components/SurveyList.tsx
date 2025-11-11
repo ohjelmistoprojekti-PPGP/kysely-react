@@ -1,34 +1,62 @@
 import { useEffect, useState } from "react";
 import type { Survey } from "../types";
-import { getSurveys } from "../services/SurveyApi";
-import { DataGrid, type GridRowsProp, type GridColDef } from '@mui/x-data-grid';
+import SurveyApi from "../services/SurveyApi";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
-function SurveyList(){
+function SurveyList() {
+  const [surveys, setSurveys] = useState<Survey[] | null>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-    const [surveys, setSurveys] = useState<Survey[] | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+  useEffect(() => {
+    fetchSurveys();
+  }, []);
 
-    useEffect(() => {
-        getSurveys();
-    },[]);
+  const fetchSurveys = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await SurveyApi.getSurveys();
+      setSurveys(data);
+    } catch (error) {
+      console.error("Error fetching surveys:", error);
+      setError("Failed to fetch surveys. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const rows: GridRowsProp = [
-        { id: 1, name: 'Data Grid', description: 'the Community version' },
-        { id: 2, name: 'Data Grid Pro', description: 'the Pro version' },
-        { id: 3, name: 'Data Grid Premium', description: 'the Premium version' },
-    ];
-
-    const columns: GridColDef[] = [
-        { field: 'name', headerName: 'Kysely', width: 200 },
-        { field: 'description', headerName: 'Kuvaus', width: 300 },
-    ];
-
-    return(
-        <div style={{ height: 300, width: '100%' }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
-    );
+  return (
+    <>
+      {loading && <div>Ladataan kyselyjä...</div>}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      {!loading && !error && surveys && (
+        <Table>
+          <TableCaption>Saatavilla olevat kyselyt</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[100px]">Kysely</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {surveys.map((survey) => (
+              <TableRow key={survey.surveyId}>
+                <TableCell>{survey.surveyName}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </>
+  );
 }
 
 export default SurveyList;

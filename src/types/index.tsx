@@ -1,21 +1,21 @@
-
 export interface Survey {
-    id: number;
-    name: string;
-    desc?: string;
-    startingDate: string;
-    endingDate: string;
+  surveyId: number;
+  surveyName: string;
+  surveyDesc?: string;
+  createdDate: string;
+  startingDate: string;
+  endingDate: string;
 }
 
 export interface Question {
-    id: number;
-    questionText: string;
-    surveyId: number;
+  id: number;
+  questionText: string;
+  surveyId: number;
 }
 
 export interface Response {
-    questionId: number;
-    value: string;
+  questionId: number;
+  value: string;
 }
 
 //Tämä myöhemmässä vaiheessa
