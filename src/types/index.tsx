@@ -8,14 +8,15 @@ export interface Survey {
 }
 
 export interface Question {
-  id: number;
+  questionId: number;
   questionText: string;
   surveyId: number;
 }
 
 export interface Response {
+  responseId: number;
+  responseText: string;
   questionId: number;
-  value: string;
 }
 
 //Tämä myöhemmässä vaiheessa
