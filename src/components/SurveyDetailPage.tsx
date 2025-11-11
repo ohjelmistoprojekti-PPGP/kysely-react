@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import SurveyApi from "../services/SurveyApi";
-import type { Question, Survey } from "@/types";
+import type { Question, Survey, Response } from "@/types";
 import {
   Field,
   FieldDescription,
@@ -22,15 +22,18 @@ function SurveyDetailPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [response, setResponse] = useState<Response | null>();
 
   useEffect(() => {
-    const fetchSurveyAndQuestions = async () => {
+    const fetchQuestions = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const survey = await SurveyApi.getSurveyById(Number(id));
-        setSurvey(survey);
+        if (!passedSurvey) {
+          const fetchedSurvey = await SurveyApi.getSurveyById(Number(id));
+          setSurvey(fetchedSurvey);
+        }
         const questions = await SurveyApi.getQuestionsBySurveyId(Number(id));
         setQuestions(questions);
       } catch (err) {
@@ -40,7 +43,7 @@ function SurveyDetailPage() {
         setLoading(false);
       }
     };
-    if (id) fetchSurveyAndQuestions();
+    if (id) fetchQuestions();
   }, [id]);
 
   if (loading) return <div className="p-4">Ladataan kyselyä...</div>;
@@ -75,7 +78,10 @@ function SurveyDetailPage() {
                   <FieldLabel key={q.questionId}>
                     {q.questionText}
                   </FieldLabel>
-                  <Textarea />
+                  <Textarea
+                  // value={response?.responseText}
+                  // onChange={(e) => setResponse({ ...response, responseText: e.target.value, questionId: q.questionId })}
+                  />
                 </Field>
               ))}
 

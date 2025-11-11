@@ -14,7 +14,7 @@ export interface Question {
 }
 
 export interface Response {
-  responseId: number;
+  responseId?: number;
   responseText: string;
   questionId: number;
 }

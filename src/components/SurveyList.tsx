@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useNavigate } from "react-router";
+import { Button } from "./ui/button";
 
 function SurveyList() {
   const [surveys, setSurveys] = useState<Survey[] | null>([]);
@@ -36,12 +37,6 @@ function SurveyList() {
     }
   };
 
-  //   const handleSelectSurvey = async (surveyId: number) => {
-  //     setSelectedSurveyId(surveyId);
-  //     const fecthedQuestions = await SurveyApi.getQuestionsBySurveyId(surveyId);
-  //     setQuestions(fecthedQuestions);
-  //   };
-
   return (
     <>
       <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
@@ -63,10 +58,9 @@ function SurveyList() {
                 <TableRow key={survey.surveyId}>
                   <TableCell>{survey.surveyName}</TableCell>
                   <TableCell
-                    // onClick={() => handleSelectSurvey(survey.surveyId)}
                     onClick={() => navigate(`/surveys/${survey.surveyId}`, { state: { survey } })}
                   >
-                    Vastaa
+                    <Button variant="outline">Vastaa</Button>
                   </TableCell>
                 </TableRow>
               ))}
