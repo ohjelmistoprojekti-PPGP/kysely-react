@@ -1,4 +1,4 @@
-import type { Question, Survey } from "../types";
+import type { Question, Survey, Response } from "../types";
 
 const API_URL = import.meta.env.VITE_BASE_API_URL;
 
@@ -62,8 +62,28 @@ const getQuestionsBySurveyId = async (
     console.log(data);
     return data;
   } catch (error) {
-    console.error("Error fetching questions for survey ${surveyId}", error);
+    console.error(`Error fetching questions for survey ${surveyId}`, error);
     return [];
+  }
+};
+
+
+const postSurveyResponses = async (
+  surveyId: number,
+  responses: Response[]
+): Promise<Response[]> => {
+  try {
+    const response = await fetch(`${API_URL}/surveys/${surveyId}/responses`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(responses),
+    });
+
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error submitting survey responses for survey ${surveyId}:`, error);
+    throw error;
   }
 };
 
@@ -71,6 +91,7 @@ const SurveyApi = {
   getSurveys,
   getSurveyById,
   getQuestionsBySurveyId,
+  postSurveyResponses,
 };
 
 export default SurveyApi;

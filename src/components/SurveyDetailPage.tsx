@@ -11,6 +11,7 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea"
+import { Button } from "./ui/button";
 
 
 function SurveyDetailPage() {
@@ -22,7 +23,7 @@ function SurveyDetailPage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<Response | null>();
+  const [responses, setResponses] = useState<Record<number, string>>({});
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -45,6 +46,42 @@ function SurveyDetailPage() {
     };
     if (id) fetchQuestions();
   }, [id]);
+
+  const handleResponseChange = (questionId: number, text: string) => {
+    setResponses(prev => ({
+      ...prev,
+      [questionId]: text
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      if (Object.keys(responses).length === 0) {
+        alert("Vastaa ainakin yhteen kysymykseen ennen lähettämistä.");
+        return;
+      }
+
+      // Muusta vastaukset Response arrayksi, lähetetään Question objekti
+      const responseArray: Response[] = Object.entries(responses).map(
+        ([questionId, responseText]) => ({
+          question: { questionId: Number(questionId) },
+          responseText,
+        })
+      );
+
+      console.log("Submitting responses:", responseArray);
+
+      await SurveyApi.postSurveyResponses(Number(id), responseArray);
+
+      alert("Vastaukset lähetetty onnistuneesti!");
+      setResponses({});
+
+    } catch (error) {
+      console.error("Error submitting responses:", error);
+      alert("Virhe lähetyksessä. Yritä uudelleen.");
+    }
+  };
 
   if (loading) return <div className="p-4">Ladataan kyselyä...</div>;
   if (error) return <div className="p-4 text-red-500">{error}</div>;
@@ -74,18 +111,24 @@ function SurveyDetailPage() {
 
             <FieldGroup>
               {questions.map((q) => (
-                <Field>
-                  <FieldLabel key={q.questionId}>
+                <Field key={q.questionId}>
+                  <FieldLabel>
                     {q.questionText}
                   </FieldLabel>
                   <Textarea
-                  // value={response?.responseText}
-                  // onChange={(e) => setResponse({ ...response, responseText: e.target.value, questionId: q.questionId })}
+                    value={responses[q.questionId] || ""}
+                    onChange={(e) => handleResponseChange(q.questionId, e.target.value)}
+                    placeholder="Kirjoita vastauksesi tähän..."
                   />
                 </Field>
               ))}
-
             </FieldGroup>
+            <Field orientation="horizontal">
+              <Button type="submit" onClick={handleSubmit}>Lähetä</Button>
+              <Button variant="outline" type="button">
+                Peruuta
+              </Button>
+            </Field>
           </FieldGroup>
         </form>
       </div>
