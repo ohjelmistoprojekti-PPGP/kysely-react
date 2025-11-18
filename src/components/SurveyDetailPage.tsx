@@ -10,9 +10,8 @@ import {
   FieldLegend,
   FieldSet,
 } from "@/components/ui/field";
-import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "./ui/button";
-
 
 function SurveyDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -45,12 +44,12 @@ function SurveyDetailPage() {
       }
     };
     if (id) fetchQuestions();
-  }, [id]);
+  }, [id, passedSurvey]);
 
   const handleResponseChange = (questionId: number, text: string) => {
-    setResponses(prev => ({
+    setResponses((prev) => ({
       ...prev,
-      [questionId]: text
+      [questionId]: text,
     }));
   };
 
@@ -76,7 +75,6 @@ function SurveyDetailPage() {
 
       alert("Vastaukset lähetetty onnistuneesti!");
       setResponses({});
-
     } catch (error) {
       console.error("Error submitting responses:", error);
       alert("Virhe lähetyksessä. Yritä uudelleen.");
@@ -90,7 +88,10 @@ function SurveyDetailPage() {
   return (
     <div>
       <div className="p-4">
-        <Link to="/" className="text-muted-foreground hover:text-primary mb-4 inline-block">
+        <Link
+          to="/"
+          className="text-muted-foreground hover:text-primary mb-4 inline-block"
+        >
           ← Takaisin kyselylistaan
         </Link>
       </div>
@@ -100,9 +101,7 @@ function SurveyDetailPage() {
           <FieldGroup>
             <FieldSet>
               <FieldLegend>{survey.surveyName}</FieldLegend>
-              <FieldDescription>
-                {survey.surveyDesc}
-              </FieldDescription>
+              <FieldDescription>{survey.surveyDesc}</FieldDescription>
               <FieldDescription>
                 Vastausaika:{<br />}
                 {survey.startingDate} - {survey.endingDate}
@@ -112,19 +111,21 @@ function SurveyDetailPage() {
             <FieldGroup>
               {questions.map((q) => (
                 <Field key={q.questionId}>
-                  <FieldLabel>
-                    {q.questionText}
-                  </FieldLabel>
+                  <FieldLabel>{q.questionText}</FieldLabel>
                   <Textarea
                     value={responses[q.questionId] || ""}
-                    onChange={(e) => handleResponseChange(q.questionId, e.target.value)}
+                    onChange={(e) =>
+                      handleResponseChange(q.questionId, e.target.value)
+                    }
                     placeholder="Kirjoita vastauksesi tähän..."
                   />
                 </Field>
               ))}
             </FieldGroup>
             <Field orientation="horizontal">
-              <Button type="submit" onClick={handleSubmit}>Lähetä</Button>
+              <Button type="submit" onClick={handleSubmit}>
+                Lähetä
+              </Button>
               <Button variant="outline" type="button">
                 Peruuta
               </Button>
@@ -133,7 +134,6 @@ function SurveyDetailPage() {
         </form>
       </div>
     </div>
-
   );
 }
 
