@@ -86,7 +86,7 @@ const postSurveyResponses = async (
     throw error;
   }
 };
-
+// Hakee kaikki annetun kyselyn (SurveyIdg) vastaukset
 const getResponsesBySurveyId = async (
   surveyId: number
 ): Promise<Response[]> => {
