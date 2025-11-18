@@ -87,10 +87,29 @@ const postSurveyResponses = async (
   }
 };
 
+const getResponsesBySurveyId = async (
+  surveyId: number
+): Promise<Response[]> => {
+  try {
+    const response = await fetch(`${API_URL}/surveys/${surveyId}/responses`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json"
+    },
+  });
+
+  if (!response.ok) throw new Error(`Error: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Error fetching responses for survey ${surveyId}`, error);
+    return [];
+  }
+};
+
 const SurveyApi = {
   getSurveys,
   getSurveyById,
   getQuestionsBySurveyId,
+  getResponsesBySurveyId,
   postSurveyResponses,
 };
 
