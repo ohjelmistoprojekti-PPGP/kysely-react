@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import ReactDOM from "react-dom/client";
 import SurveyList from "./components/SurveyList.tsx";
 import SurveyDetailPage from "./components/SurveyDetailPage.tsx";
+import SurveyResultsPage from "./components/SurveyDetailPage.tsx";
 import React from "react";
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "surveys/:id", // path can be defined relative to the parent path
         element: <SurveyDetailPage />,
+      },
+      {
+        path: "surveys/:id/results",
+        element: <SurveyResultsPage />,
       },
     ],
   },
