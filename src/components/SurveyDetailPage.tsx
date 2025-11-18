@@ -111,14 +111,33 @@ function SurveyDetailPage() {
             <FieldGroup>
               {questions.map((q) => (
                 <Field key={q.questionId}>
-                  <FieldLabel>{q.questionText}</FieldLabel>
-                  <Textarea
-                    value={responses[q.questionId] || ""}
-                    onChange={(e) =>
-                      handleResponseChange(q.questionId, e.target.value)
-                    }
-                    placeholder="Kirjoita vastauksesi tähän..."
-                  />
+                  {/* TEXT INPUT */}
+                  {q.questionType === "text" && (
+                    <Field>
+                      <FieldLabel>{q.questionText}</FieldLabel>
+                      <Textarea
+                        value={responses[q.questionId] || ""}
+                        onChange={(e) =>
+                          handleResponseChange(q.questionId, e.target.value)
+                        }
+                        placeholder="Kirjoita vastauksesi tähän..."
+                      />
+                    </Field>
+                  )}
+                  {/* MULTIPLE CHOICE RADIO BUTTONS */}
+                  {q.questionType === "radioButton" &&
+                    q.options.map((option) => (
+                      <label key={option} style={{ display: "block" }}>
+                        <input
+                          type="radio"
+                          name={`question-${q.questionId}`}
+                          value={option}
+                          // checked={answers[q.id] === option}
+                          // onChange={(e) => handleChange(q.id, e.target.value)}
+                        />
+                        {option}
+                      </label>
+                    ))}
                 </Field>
               ))}
             </FieldGroup>
