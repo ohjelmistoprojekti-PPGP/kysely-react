@@ -146,7 +146,7 @@ function SurveyDetailPage() {
                 Lähetä
               </Button>
               <Button variant="outline" type="button">
-                Peruuta
+                <Link to="/">Peruuta</Link>
               </Button>
             </Field>
           </FieldGroup>
