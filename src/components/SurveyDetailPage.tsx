@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "./ui/button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 function SurveyDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -125,19 +126,30 @@ function SurveyDetailPage() {
                     </Field>
                   )}
                   {/* MULTIPLE CHOICE RADIO BUTTONS */}
-                  {q.questionType === "radioButton" &&
-                    q.options.map((option) => (
-                      <label key={option} style={{ display: "block" }}>
-                        <input
-                          type="radio"
-                          name={`question-${q.questionId}`}
-                          value={option}
-                          // checked={answers[q.id] === option}
-                          // onChange={(e) => handleChange(q.id, e.target.value)}
-                        />
-                        {option}
-                      </label>
-                    ))}
+                  {q.questionType === "radioButton" && (
+                    <Field>
+                      <FieldLabel>{q.questionText}</FieldLabel>
+                      <RadioGroup
+                        value={responses[q.questionId] || ""}
+                        onValueChange={(value) => handleResponseChange(q.questionId, value)}
+                      >
+                        {q.options.map((option) => (
+                          <Field orientation="horizontal" key={option}>
+                            <RadioGroupItem
+                              value={option}
+                              id={`question-${q.questionId}-${option}`}
+                            />
+                            <FieldLabel
+                              htmlFor={`question-${q.questionId}-${option}`}
+                              className="font-normal"
+                            >
+                              {option}
+                            </FieldLabel>
+                          </Field>
+                        ))}
+                      </RadioGroup>
+                    </Field>
+                  )}
                 </Field>
               ))}
             </FieldGroup>
