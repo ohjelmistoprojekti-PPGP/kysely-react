@@ -31,11 +31,11 @@ const getSurveyById = async (surveyId: number): Promise<Survey | null> => {
     const response = await fetch(`${API_URL}/surveys/${surveyId}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
     });
     if (!response.ok) throw new Error(`Error: ${response.status}`);
-    return await response.json() as Survey;
+    return (await response.json()) as Survey;
   } catch (error) {
     console.error(`Error fetching survey ${surveyId}:`, error);
     return null;
@@ -67,22 +67,24 @@ const getQuestionsBySurveyId = async (
   }
 };
 
-
 const postSurveyResponses = async (
   surveyId: number,
   responses: Response[]
 ): Promise<Response[]> => {
   try {
     const response = await fetch(`${API_URL}/surveys/${surveyId}/responses`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(responses),
     });
 
     if (!response.ok) throw new Error(`Error: ${response.status}`);
     return await response.json();
   } catch (error) {
-    console.error(`Error submitting survey responses for survey ${surveyId}:`, error);
+    console.error(
+      `Error submitting survey responses for survey ${surveyId}:`,
+      error
+    );
     throw error;
   }
 };
@@ -92,12 +94,11 @@ const getResponsesBySurveyId = async (
 ): Promise<Response[]> => {
   try {
     const response = await fetch(`${API_URL}/surveys/${surveyId}/responses`, {
-    method: "GET",
-    headers: { "Content-Type": "application/json"
-    },
-  });
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
 
-  if (!response.ok) throw new Error(`Error: ${response.status}`);
+    if (!response.ok) throw new Error(`Error: ${response.status}`);
     return await response.json();
   } catch (error) {
     console.error(`Error fetching responses for survey ${surveyId}`, error);

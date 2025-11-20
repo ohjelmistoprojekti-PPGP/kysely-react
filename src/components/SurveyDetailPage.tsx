@@ -131,7 +131,9 @@ function SurveyDetailPage() {
                       <FieldLabel>{q.questionText}</FieldLabel>
                       <RadioGroup
                         value={responses[q.questionId] || ""}
-                        onValueChange={(value) => handleResponseChange(q.questionId, value)}
+                        onValueChange={(value) =>
+                          handleResponseChange(q.questionId, value)
+                        }
                       >
                         {q.options.map((option) => (
                           <Field orientation="horizontal" key={option}>
