@@ -3,26 +3,29 @@ import { useParams, Link } from "react-router-dom";
 import SurveyApi from "../services/SurveyApi";
 import type { Question, Response } from "@/types";
 
-function SurveyResultsPage = () => {
-    const { id } = useParams<{ id: string }>();
-    const [questions, setQuestions] = useState<Question[]>([]);
-    const [responses, setResponses] = useState<Response[]>([]);
-    const [loading, setLoading] = useState(true);
+function SurveyResultsPage() {
+  const { id } = useParams<{ id: string }>();
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [responses, setResponses] = useState<Response[]>([]);
+  const [loading, setLoading] = useState(true);
 
-useEffect(() => {
+  useEffect(() => {
     async function load() {
-    if (!id) return;
+      if (!id) return;
 
-    const q = await SurveyApi.getQuestionsBySurveyId(Number(id));
-    const r = await SurveyApi.getResponsesBySurveyId(Number(id));
+      const q = await SurveyApi.getQuestionsBySurveyId(Number(id));
+      const r = await SurveyApi.getResponsesBySurveyId(Number(id));
 
-    setQuestions(q);
-    setResponses(r);
-    setLoading(false);
+      setQuestions(q);
+      setResponses(r);
+      setLoading(false);
     }
     load();
-}, [id]);
+  }, [id]);
 
-if (loading) return <div className="p-4"> Lataa </div>;
+  if (loading) return <div className="p-4"> Lataa </div>;
 
-return
+  return <div></div>;
+}
+
+export default SurveyResultsPage;
