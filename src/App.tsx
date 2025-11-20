@@ -7,6 +7,7 @@ function App() {
       <nav>
         <Link to={"/"}></Link>
         <Link to={"/surveys/:id"}></Link>
+        <Link to={"/surveys/:id/responses"}></Link>
       </nav>
       <Outlet />
     </>

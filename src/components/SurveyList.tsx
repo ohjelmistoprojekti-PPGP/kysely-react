@@ -68,7 +68,7 @@ function SurveyList() {
                   </TableCell>
                   <TableCell
                     onClick={() =>
-                      navigate(`/surveys/${survey.surveyId}/results`, {
+                      navigate(`/surveys/${survey.surveyId}/responses`, {
                         state: { survey },
                       })
                     }
