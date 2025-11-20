@@ -61,10 +61,9 @@ function SurveyResultsPage() {
           <FieldGroup>
             <Field>
               <FieldLabel>{survey?.surveyName}</FieldLabel>
-
-              <Item variant="outline">
-                {questions.map((q) => (
-                  <ItemContent key={q.questionId}>
+              {questions.map((q) => (
+                <Item variant="outline" key={q.questionId}>
+                  <ItemContent>
                     <ItemTitle>{q.questionText}</ItemTitle>
 
                     {responses
@@ -75,8 +74,8 @@ function SurveyResultsPage() {
                         </ItemDescription>
                       ))}
                   </ItemContent>
-                ))}
-              </Item>
+                </Item>
+              ))}
             </Field>
           </FieldGroup>
         </FieldSet>
