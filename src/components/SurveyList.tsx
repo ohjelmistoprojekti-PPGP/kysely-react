@@ -58,9 +58,22 @@ function SurveyList() {
                 <TableRow key={survey.surveyId}>
                   <TableCell>{survey.surveyName}</TableCell>
                   <TableCell
-                    onClick={() => navigate(`/surveys/${survey.surveyId}`, { state: { survey } })}
+                    onClick={() =>
+                      navigate(`/surveys/${survey.surveyId}`, {
+                        state: { survey },
+                      })
+                    }
                   >
                     <Button variant="outline">Vastaa</Button>
+                  </TableCell>
+                  <TableCell
+                    onClick={() =>
+                      navigate(`/surveys/${survey.surveyId}/results`, {
+                        state: { survey },
+                      })
+                    }
+                  >
+                    <Button variant="outline">Tulokset</Button>
                   </TableCell>
                 </TableRow>
               ))}
