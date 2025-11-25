@@ -47,8 +47,8 @@ function SurveyResultsPage() {
   if (loading) return <div className="p-4"> Lataa </div>;
 
   return (
-    <div>
-      <div className="p-4">
+    <div className="p-4">
+      <div>
         <Link
           to="/"
           className="text-muted-foreground hover:text-primary mb-4 inline-block"
@@ -56,21 +56,21 @@ function SurveyResultsPage() {
           ← Takaisin kyselylistaan
         </Link>
       </div>
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-md mx-auto">
         <FieldSet>
           <FieldGroup>
             <Field>
               <FieldLabel>{survey?.surveyName}</FieldLabel>
               {questions.map((q) => (
                 <Item variant="outline" key={q.questionId}>
-                  <ItemContent>
+                  <ItemContent className="text-left">
                     <ItemTitle>{q.questionText}</ItemTitle>
 
                     {responses
                       .filter((r) => r.question.questionId === q.questionId)
                       .map((r) => (
                         <ItemDescription key={r.responseId}>
-                          {r.responseText}
+                          &bull; {r.responseText}
                         </ItemDescription>
                       ))}
                   </ItemContent>
