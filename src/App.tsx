@@ -1,21 +1,15 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from 'react-router-dom';
-import { Menubar } from "./components/ui/menubar";
+import { Outlet } from "react-router-dom";
+import MenuBar from "./components/MenuBar";
 import SurveyList from "./components/SurveyList";
 
 function App() {
   return (
     <>
-      <nav>
-        <Link to={"/"}></Link>
-        <Link to={"/surveys/:id"}></Link>
-        <Link to={"/surveys/:id/responses"}></Link>
-      </nav>
-      <Menubar />
-          <Routes>
-          <Route path="/" element={<SurveyList />} />
-        </Routes>
-      <Outlet />
+      <MenuBar />
+      <main className="p-4">
+        <Outlet />
+      </main>
     </>
   );
 }

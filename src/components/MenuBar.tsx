@@ -1,36 +1,14 @@
-import {
-  Menubar,
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
-} from "@/components/ui/menubar"
+import { Link } from "react-router-dom";
 
-export function MenubarDemo() {
+export default function MenuBar() {
   return (
-    <Menubar>
-  <MenubarMenu>
-    <MenubarTrigger>File</MenubarTrigger>
-    <MenubarContent>
-      <MenubarItem>
-        Mitä tää tekee <MenubarShortcut>⌘T</MenubarShortcut>
-      </MenubarItem>
-      <MenubarItem>New Window</MenubarItem>
-      <MenubarSeparator />
-      <MenubarItem>Share</MenubarItem>
-      <MenubarSeparator />
-      <MenubarItem>Print</MenubarItem>
-    </MenubarContent>
-  </MenubarMenu>
-</Menubar>
-
-  )
+    <div className="w-full border-b bg-white">
+      <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+        <Link to="/" className="flex items-center gap-6 no-underline">
+          <span className="text-xl font-bold">SurveyService</span>
+          <span className="text-sm text-black-700 hover:underline">Kyselylista</span>
+        </Link>
+      </div>
+    </div>
+  );
 }
