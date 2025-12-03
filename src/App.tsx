@@ -1,7 +1,6 @@
 import "./App.css";
 import { Link, Outlet } from "react-router-dom";
-// import MenuBar from "./components/MenuBar";
-// import SurveyList from "./components/SurveyList";
+import MenuBar from "./components/MenuBar";
 
 function App() {
   return (
@@ -12,12 +11,12 @@ function App() {
         <Link to={"/surveys/:id/responses"}></Link>
         <Link to={"/questions/:id/responses"}></Link>
       </nav>
-      <Outlet />
+      {/* <Outlet /> */}
 
-      {/* <MenuBar />
+      <MenuBar />
       <main className="p-4">
         <Outlet />
-      </main> */}
+      </main>
     </>
   );
 }
