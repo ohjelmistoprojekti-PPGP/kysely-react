@@ -18,11 +18,10 @@ export interface Question {
 export interface Response {
   responseId?: number;
   responseText: string;
-  question: { questionId: number };
+  question: {
+    questionId?: number;
+    questionText?: string;
+    questionType?: string;
+    options?: unknown[];
+  };
 }
-
-//Tämä myöhemmässä vaiheessa
-// export interface SurveyResponse {
-//     surveyId: number;
-//     answers: Response[];
-// }

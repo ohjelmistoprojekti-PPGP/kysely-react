@@ -6,6 +6,7 @@ import SurveyList from "./components/SurveyList.tsx";
 import SurveyDetailPage from "./components/SurveyDetailPage.tsx";
 import SurveyResultsPage from "./components/SurveyResultsPage.tsx";
 import React from "react";
+import QuestionResultPage from "./components/QuestionResultPage.tsx";
 
 const router = createBrowserRouter([
   // Import components that are used in routes
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "surveys/:id/responses",
         element: <SurveyResultsPage />,
+      },
+      {
+        path: "questions/:id/responses",
+        element: <QuestionResultPage />,
       },
     ],
   },

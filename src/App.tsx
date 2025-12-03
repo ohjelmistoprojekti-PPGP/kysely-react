@@ -8,6 +8,7 @@ function App() {
         <Link to={"/"}></Link>
         <Link to={"/surveys/:id"}></Link>
         <Link to={"/surveys/:id/responses"}></Link>
+        <Link to={"/questions/:id/responses"}></Link>
       </nav>
       <Outlet />
     </>

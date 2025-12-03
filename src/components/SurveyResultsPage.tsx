@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import SurveyApi from "../services/SurveyApi";
 import type { Question, Response, Survey } from "@/types";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
@@ -9,6 +9,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
+import { Button } from "./ui/button";
 
 function SurveyResultsPage() {
   const { id } = useParams<{ id: string }>();
@@ -17,6 +18,7 @@ function SurveyResultsPage() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const passedSurvey = location.state?.survey;
+  const navigate = useNavigate();
 
   const [survey, setSurvey] = useState<Survey | null>(passedSurvey);
 
@@ -46,6 +48,8 @@ function SurveyResultsPage() {
 
   if (loading) return <div className="p-4"> Lataa </div>;
 
+  console.log("responses:", responses);
+
   return (
     <div className="p-4">
       <div>
@@ -64,7 +68,20 @@ function SurveyResultsPage() {
               {questions.map((q) => (
                 <Item variant="outline" key={q.questionId}>
                   <ItemContent className="text-left">
-                    <ItemTitle>{q.questionText}</ItemTitle>
+                    <ItemTitle
+                      onClick={() =>
+                        navigate(`/questions/${q.questionId}/responses`, {
+                          state: {
+                            q,
+                            r: responses.filter(
+                              (res) => res.question.questionId === q.questionId
+                            ),
+                          },
+                        })
+                      }
+                    >
+                      <Button variant="ghost">{q.questionText}</Button>
+                    </ItemTitle>
 
                     {responses
                       .filter((r) => r.question.questionId === q.questionId)
