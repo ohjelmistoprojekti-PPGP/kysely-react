@@ -1,5 +1,7 @@
 import "./App.css";
-import { Link, Outlet } from "react-router";
+import { Link, Outlet } from "react-router-dom";
+// import MenuBar from "./components/MenuBar";
+// import SurveyList from "./components/SurveyList";
 
 function App() {
   return (
@@ -11,6 +13,11 @@ function App() {
         <Link to={"/questions/:id/responses"}></Link>
       </nav>
       <Outlet />
+
+      {/* <MenuBar />
+      <main className="p-4">
+        <Outlet />
+      </main> */}
     </>
   );
 }
