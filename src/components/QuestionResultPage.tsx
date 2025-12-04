@@ -15,11 +15,18 @@ function QuestionResultPage() {
   const getPieData = () => {
     if (!passedResponses) return [];
 
+    // Initialize counts with all available options set to 0
     const counts: Record<string, number> = {};
+    passedQuestion?.options?.forEach((option: string) => {
+      counts[option] = 0;
+    });
 
+    // Count actual responses
     passedResponses.forEach((r) => {
       const option = r.responseText;
-      counts[option] = (counts[option] || 0) + 1;
+      if (counts[option] !== undefined) {
+        counts[option]++;
+      }
     });
 
     return Object.entries(counts).map(([name, value]) => ({
@@ -48,7 +55,12 @@ function QuestionResultPage() {
           ← Takaisin
         </button>
       </div>
-
+      <h2 className="scroll-m-20 text-center text-4xl font-semibold tracking-tight text-balance pb-5">
+        Kootut vastaukset
+      </h2>
+      <p className="text-muted-foreground text-s pb-5">
+        Kysymyskohtaisten vastausten koonti
+      </p>
       <div className="w-full max-w-md mx-auto">
         <FieldSet>
           <FieldGroup>
