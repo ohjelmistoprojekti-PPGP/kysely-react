@@ -82,23 +82,25 @@ function QuestionResultPage() {
 
               {/* RADIO ANSWERS */}
               {passedQuestion?.questionType === "radioButton" && (
-                <PieChart width={300} height={300}>
-                  <Pie
-                    dataKey="value"
-                    isAnimationActive={true}
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={100}
-                    label
-                  >
-                    {pieData.map((_, index) => (
-                      <Cell key={index} fill={dynamicColors[index]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend />
-                </PieChart>
+                <div className="flex justify-center">
+                  <PieChart width={400} height={400}>
+                    <Pie
+                      dataKey="value"
+                      isAnimationActive={true}
+                      data={pieData}
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={150}
+                      label
+                    >
+                      {pieData.map((_, index) => (
+                        <Cell key={index} fill={dynamicColors[index]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </div>
               )}
             </Field>
           </FieldGroup>

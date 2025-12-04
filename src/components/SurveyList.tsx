@@ -60,7 +60,15 @@ function SurveyList() {
             <TableBody>
               {surveys.map((survey) => (
                 <TableRow key={survey.surveyId}>
-                  <TableCell>{survey.surveyName}</TableCell>
+                  <TableCell className="text-left font-semibold">
+                    {survey.surveyName}
+                    <TableRow>
+                      <TableCell className="font-thin">
+                        {survey.surveyDesc}
+                      </TableCell>
+                    </TableRow>
+                  </TableCell>
+
                   <TableCell
                     onClick={() =>
                       navigate(`/surveys/${survey.surveyId}`, {
@@ -68,7 +76,7 @@ function SurveyList() {
                       })
                     }
                   >
-                    <Button variant="outline">Vastaa</Button>
+                    <Button variant="default">Vastaa</Button>
                   </TableCell>
                   <TableCell
                     onClick={() =>

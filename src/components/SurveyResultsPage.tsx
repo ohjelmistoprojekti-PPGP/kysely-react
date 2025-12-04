@@ -82,7 +82,7 @@ function SurveyResultsPage() {
         Tulokset
       </h1>
       <p className="text-muted-foreground text-s pb-5">
-        Tähän joku teksti ohjaamaan käyttäjää, miten tulokset näkyvät?
+        Tästä pääset tarkastelemaan vastauksia kysymyskohtaisesti.
       </p>
       <div className="w-full max-w-md mx-auto">
         <FieldSet>
@@ -91,6 +91,9 @@ function SurveyResultsPage() {
               <FieldLabel className="scroll-m-20 text-2xl font-semibold tracking-tight">
                 {survey?.surveyName}
               </FieldLabel>
+              <FieldDescription className="text-left">
+                {survey?.surveyDesc}
+              </FieldDescription>
               <FieldDescription className="text-left">
                 Kysymykset:
               </FieldDescription>
