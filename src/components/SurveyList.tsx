@@ -4,7 +4,6 @@ import SurveyApi from "../services/SurveyApi";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -42,7 +41,7 @@ function SurveyList() {
       <h1 className="scroll-m-20 pt-15 pb-5 text-4xl font-semibold tracking-tight first:mt-0">
         Tervetuloa SurveyService -palveluun!
       </h1>
-      <p className="scroll-m-20 pt-5 pb-5 text-m font-normal tracking-tight first:mt-0">
+      <p className="scroll-m-20 pt-5 pb-5 text-muted-foreground text-s">
         Tällä sivulla voit vastata kyselyihin ja tarkastella niiden tuloksia.
       </p>
       <h2 className="scroll-m-20 pt-5 pb-5 text-2xl font-semibold tracking-tight first:mt-0">
@@ -53,7 +52,6 @@ function SurveyList() {
       {!loading && !error && surveys && (
         <div className="flex items-center">
           <Table className="w-[500px] mx-auto">
-            <TableCaption>Saatavilla olevat kyselyt</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Kyselyn nimi</TableHead>
