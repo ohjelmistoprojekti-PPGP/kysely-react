@@ -39,8 +39,14 @@ function SurveyList() {
 
   return (
     <>
-      <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        Kyselylista
+      <h1 className="scroll-m-20 pt-15 pb-5 text-4xl font-semibold tracking-tight first:mt-0">
+        Tervetuloa SurveyService -palveluun!
+      </h1>
+      <p className="scroll-m-20 pt-5 pb-5 text-m font-normal tracking-tight first:mt-0">
+        Tällä sivulla voit vastata kyselyihin ja tarkastella niiden tuloksia.
+      </p>
+      <h2 className="scroll-m-20 pt-5 pb-5 text-2xl font-semibold tracking-tight first:mt-0">
+        Saatavilla olevat kyselyt
       </h2>
       {loading && <div>Ladataan kyselyjä...</div>}
       {error && <div style={{ color: "red" }}>{error}</div>}
@@ -50,7 +56,7 @@ function SurveyList() {
             <TableCaption>Saatavilla olevat kyselyt</TableCaption>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Kysely</TableHead>
+                <TableHead className="w-[100px]">Kyselyn nimi</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
