@@ -111,12 +111,13 @@ function SurveyDetailPage() {
 
             <FieldGroup>
               {questions.map((q) => (
-                <Field key={q.questionId}>
+                <Field className="p-2" key={q.questionId}>
                   {/* TEXT INPUT */}
                   {q.questionType === "text" && (
                     <Field>
                       <FieldLabel>{q.questionText}</FieldLabel>
                       <Textarea
+                        className="w-auto h-30"
                         value={responses[q.questionId] || ""}
                         onChange={(e) =>
                           handleResponseChange(q.questionId, e.target.value)

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { useNavigate } from "react-router";
 import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
 function SurveyList() {
   const [surveys, setSurveys] = useState<Survey[] | null>([]);
@@ -51,46 +52,48 @@ function SurveyList() {
       {error && <div style={{ color: "red" }}>{error}</div>}
       {!loading && !error && surveys && (
         <div className="flex items-center">
-          <Table className="w-[500px] mx-auto">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Kyselyn nimi</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {surveys.map((survey) => (
-                <TableRow key={survey.surveyId}>
-                  <TableCell className="text-left font-semibold">
-                    {survey.surveyName}
-                    <TableRow>
-                      <TableCell className="font-thin">
-                        {survey.surveyDesc}
-                      </TableCell>
-                    </TableRow>
-                  </TableCell>
-
-                  <TableCell
-                    onClick={() =>
-                      navigate(`/surveys/${survey.surveyId}`, {
-                        state: { survey },
-                      })
-                    }
-                  >
-                    <Button variant="default">Vastaa</Button>
-                  </TableCell>
-                  <TableCell
-                    onClick={() =>
-                      navigate(`/surveys/${survey.surveyId}/responses`, {
-                        state: { survey },
-                      })
-                    }
-                  >
-                    <Button variant="outline">Tulokset</Button>
-                  </TableCell>
+          <Card className="mx-auto p-4">
+            <Table className="w-[500px] mx-auto">
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">Kyselyn nimi</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {surveys.map((survey) => (
+                  <TableRow key={survey.surveyId}>
+                    <TableCell className="text-left font-semibold">
+                      {survey.surveyName}
+                      <TableRow>
+                        <TableCell className="font-thin">
+                          {survey.surveyDesc}
+                        </TableCell>
+                      </TableRow>
+                    </TableCell>
+
+                    <TableCell
+                      onClick={() =>
+                        navigate(`/surveys/${survey.surveyId}`, {
+                          state: { survey },
+                        })
+                      }
+                    >
+                      <Button variant="default">Vastaa</Button>
+                    </TableCell>
+                    <TableCell
+                      onClick={() =>
+                        navigate(`/surveys/${survey.surveyId}/responses`, {
+                          state: { survey },
+                        })
+                      }
+                    >
+                      <Button variant="outline">Tulokset</Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Card>
         </div>
       )}
     </>
