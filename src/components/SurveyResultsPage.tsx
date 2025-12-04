@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import SurveyApi from "../services/SurveyApi";
 import type { Question, Response, Survey } from "@/types";
-import { Field, FieldGroup, FieldLabel, FieldSet } from "@/components/ui/field";
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field";
 import {
   Item,
+  ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
@@ -46,6 +53,17 @@ function SurveyResultsPage() {
     if (id) fetchResponses();
   }, [id, passedSurvey]);
 
+  const responseCounts: Record<number, number> = responses.reduce(
+    (acc, res) => {
+      const id = res.question?.questionId;
+      if (id != null) {
+        acc[id] = (acc[id] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<number, number>
+  );
+
   if (loading) return <div className="p-4"> Lataa </div>;
 
   console.log("responses:", responses);
@@ -60,36 +78,51 @@ function SurveyResultsPage() {
           ← Takaisin kyselylistaan
         </Link>
       </div>
+      <h1 className="scroll-m-20 text-center text-4xl font-semibold tracking-tight text-balance pb-5">
+        Tulokset
+      </h1>
+      <p className="text-muted-foreground text-s pb-5">
+        Tähän joku teksti ohjaamaan käyttäjää, miten tulokset näkyvät?
+      </p>
       <div className="w-full max-w-md mx-auto">
         <FieldSet>
           <FieldGroup>
             <Field>
-              <FieldLabel>{survey?.surveyName}</FieldLabel>
+              <FieldLabel className="scroll-m-20 text-2xl font-semibold tracking-tight">
+                {survey?.surveyName}
+              </FieldLabel>
+              <FieldDescription className="text-left">
+                Kysymykset:
+              </FieldDescription>
               {questions.map((q) => (
                 <Item variant="outline" key={q.questionId}>
-                  <ItemContent className="text-left">
-                    <ItemTitle
-                      onClick={() =>
-                        navigate(`/questions/${q.questionId}/responses`, {
-                          state: {
-                            q,
-                            r: responses.filter(
-                              (res) => res.question.questionId === q.questionId
-                            ),
-                          },
-                        })
-                      }
-                    >
-                      <Button variant="ghost">{q.questionText}</Button>
-                    </ItemTitle>
+                  <ItemContent>
+                    <div className="flex items-center justify-between w-full gap-4">
+                      <ItemTitle>{q.questionText}</ItemTitle>
+                      <ItemActions>
+                        <Button
+                          onClick={() =>
+                            navigate(`/questions/${q.questionId}/responses`, {
+                              state: {
+                                q,
+                                r: responses.filter(
+                                  (res) =>
+                                    res.question.questionId === q.questionId
+                                ),
+                              },
+                            })
+                          }
+                          variant="default"
+                          size="sm"
+                        >
+                          Vastaukset
+                        </Button>
+                      </ItemActions>
+                    </div>
 
-                    {responses
-                      .filter((r) => r.question.questionId === q.questionId)
-                      .map((r) => (
-                        <ItemDescription key={r.responseId}>
-                          &bull; {r.responseText}
-                        </ItemDescription>
-                      ))}
+                    <ItemDescription className="text-left">
+                      Vastauksia yhteensä: {responseCounts[q.questionId] || 0}
+                    </ItemDescription>
                   </ItemContent>
                 </Item>
               ))}
