@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import SurveyApi from "../services/SurveyApi";
 import type { Question, Survey, Response } from "@/types";
 import {
@@ -24,6 +24,8 @@ function SurveyDetailPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [responses, setResponses] = useState<Record<number, string>>({});
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -75,6 +77,9 @@ function SurveyDetailPage() {
       await SurveyApi.postSurveyResponses(Number(id), responseArray);
 
       alert("Vastaukset lähetetty onnistuneesti!");
+
+      navigate("/");
+      
       setResponses({});
     } catch (error) {
       console.error("Error submitting responses:", error);
