@@ -80,7 +80,7 @@ function SurveyDetailPage() {
 
       navigate("/");
       
-      setResponses({});
+  
     } catch (error) {
       console.error("Error submitting responses:", error);
       alert("Virhe lähetyksessä. Yritä uudelleen.");
