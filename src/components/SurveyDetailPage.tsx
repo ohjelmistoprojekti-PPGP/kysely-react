@@ -13,6 +13,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "./ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { formatDate } from "@/utils/formatter";
 
 function SurveyDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -105,7 +106,8 @@ function SurveyDetailPage() {
               <FieldDescription>{survey.surveyDesc}</FieldDescription>
               <FieldDescription>
                 Vastausaika:{<br />}
-                {survey.startingDate} - {survey.endingDate}
+                {formatDate(survey.startingDate)} -{" "}
+                {formatDate(survey.endingDate)}
               </FieldDescription>
             </FieldSet>
 

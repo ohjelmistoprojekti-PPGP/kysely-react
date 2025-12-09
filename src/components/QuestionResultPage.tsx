@@ -3,6 +3,7 @@ import type { Response } from "@/types";
 import { Field, FieldGroup, FieldLabel, FieldSet } from "./ui/field";
 import { Item, ItemContent, ItemDescription } from "./ui/item";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { Card } from "./ui/card";
 
 function QuestionResultPage() {
   const location = useLocation();
@@ -62,49 +63,51 @@ function QuestionResultPage() {
         Kysymyskohtaisten vastausten koonti
       </p>
       <div className="w-full max-w-md mx-auto">
-        <FieldSet>
-          <FieldGroup>
-            <Field>
-              <FieldLabel>{passedQuestion?.questionText}</FieldLabel>
+        <Card className="mx-auto p-4">
+          <FieldSet>
+            <FieldGroup>
+              <Field>
+                <FieldLabel>{passedQuestion?.questionText}</FieldLabel>
 
-              {/* TEXT ANSWERS */}
-              {passedQuestion?.questionType === "text" && (
-                <Item variant="outline">
-                  <ItemContent className="text-left">
-                    {passedResponses?.map((r) => (
-                      <ItemDescription key={r.responseId}>
-                        • {r.responseText}
-                      </ItemDescription>
-                    ))}
-                  </ItemContent>
-                </Item>
-              )}
-
-              {/* RADIO ANSWERS */}
-              {passedQuestion?.questionType === "radioButton" && (
-                <div className="flex justify-center">
-                  <PieChart width={400} height={400}>
-                    <Pie
-                      dataKey="value"
-                      isAnimationActive={true}
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={150}
-                      label
-                    >
-                      {pieData.map((_, index) => (
-                        <Cell key={index} fill={dynamicColors[index]} />
+                {/* TEXT ANSWERS */}
+                {passedQuestion?.questionType === "text" && (
+                  <Item variant="outline">
+                    <ItemContent className="text-left">
+                      {passedResponses?.map((r) => (
+                        <ItemDescription key={r.responseId}>
+                          • {r.responseText}
+                        </ItemDescription>
                       ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                  </PieChart>
-                </div>
-              )}
-            </Field>
-          </FieldGroup>
-        </FieldSet>
+                    </ItemContent>
+                  </Item>
+                )}
+
+                {/* RADIO ANSWERS */}
+                {passedQuestion?.questionType === "radioButton" && (
+                  <div className="flex justify-center">
+                    <PieChart width={400} height={400}>
+                      <Pie
+                        dataKey="value"
+                        isAnimationActive={true}
+                        data={pieData}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={150}
+                        label
+                      >
+                        {pieData.map((_, index) => (
+                          <Cell key={index} fill={dynamicColors[index]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                      <Legend />
+                    </PieChart>
+                  </div>
+                )}
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+        </Card>
       </div>
     </div>
   );

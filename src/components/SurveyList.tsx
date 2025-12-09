@@ -56,7 +56,7 @@ function SurveyList() {
             <Table className="w-[500px] mx-auto">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[100px]">Kyselyn nimi</TableHead>
+                  <TableHead className="w-[100px]">Kyselyt</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
